@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 
 namespace P_Jass
@@ -7,8 +8,11 @@ namespace P_Jass
     {
         static void Main()
         {
-            Console.WriteLine();
-            Console.Read();
+            List<string> menuNames = new List<string> { "jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Quitter" };
+            Console.SetWindowSize(230, 60);
+            Menu menu = new Menu(menuNames, MenuStyle.center, ConsoleColor.DarkMagenta, 2);
+            menu.Display();
+            Console.ReadLine();
         }
     }
 }
