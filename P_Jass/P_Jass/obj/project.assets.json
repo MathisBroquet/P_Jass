@@ -686,24 +686,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pm17cxg\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Moi\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pm17cxg\\Desktop\\P_Jass\\P_Jass\\P_Jass\\P_Jass.csproj",
+      "projectUniqueName": "C:\\Users\\Moi\\Desktop\\C#_Perso\\P_Jass\\P_Jass\\P_Jass\\P_Jass.csproj",
       "projectName": "P_Jass",
-      "projectPath": "C:\\Users\\pm17cxg\\Desktop\\P_Jass\\P_Jass\\P_Jass\\P_Jass.csproj",
-      "packagesPath": "C:\\Users\\pm17cxg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pm17cxg\\Desktop\\P_Jass\\P_Jass\\P_Jass\\obj\\",
+      "projectPath": "C:\\Users\\Moi\\Desktop\\C#_Perso\\P_Jass\\P_Jass\\P_Jass\\P_Jass.csproj",
+      "packagesPath": "C:\\Users\\Moi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Moi\\Desktop\\C#_Perso\\P_Jass\\P_Jass\\P_Jass\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\pm17cxg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Moi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -714,6 +718,7 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
+          "targetAlias": "netcoreapp2.2",
           "projectReferences": {}
         }
       },
@@ -725,6 +730,7 @@
     },
     "frameworks": {
       "netcoreapp2.2": {
+        "targetAlias": "netcoreapp2.2",
         "dependencies": {
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
@@ -734,10 +740,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

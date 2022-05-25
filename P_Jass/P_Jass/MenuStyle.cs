@@ -4,7 +4,13 @@ using System.Text;
 
 namespace P_Jass
 {
-    public enum MenuStyle
+    public enum MenuHorizontal
+    {
+        left,
+        center,
+        right,
+    }
+    public enum MenuVertical
     {
         left,
         center,
