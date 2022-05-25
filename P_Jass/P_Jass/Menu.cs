@@ -10,19 +10,19 @@ namespace P_Jass
         private MenuStyle _menuStyle;
         private ConsoleColor _color;
         private byte _menuMarginBetween;
+        private byte _nbrLines;
+        private byte _currentWidth;
+        private string[] _lines;
+        private byte _currentLine;
 
-        public Menu(List<string> menuNames, MenuStyle menuStyle, ConsoleColor color, byte menuMarginBetween)
+        public Menu(List<string> menuNames, MenuStyle menuStyle, ConsoleColor color, byte menuMarginBetween = 0)
         {
             _menuNames = menuNames;
             _menuStyle = menuStyle;
             _color = color;
             _menuMarginBetween = menuMarginBetween;
-        }
-
-        public void Display()
-        {
-            //Properties
-            byte _nbrLines = 0;
+            _nbrLines = 0;
+            _currentWidth = 0;
             foreach (string item in _menuNames)
             {
                 for (int i = 0; i < item.Split('\n').Length; i++)
@@ -30,9 +30,12 @@ namespace P_Jass
                     _nbrLines++;
                 }
             }       //Count the numbers of \n
-            byte _currentLine = Convert.ToByte(Console.WindowHeight / 2 - (_menuNames.Count - 1) / 2 - ((_menuNames.Count - 2) * _menuMarginBetween) / 2 - _nbrLines / 2);
-            byte _currentWidth = 0;
-            string[] _lines;
+        }
+
+        public void Display()
+        {
+            //Properties
+            _currentLine = Convert.ToByte(Console.WindowHeight / 2 - (_menuNames.Count) / 2 - ((_menuNames.Count - 1) * _menuMarginBetween) / 2 - _nbrLines / 2);
             Console.ForegroundColor = _color;
 
             //Write the menu
@@ -48,30 +51,21 @@ namespace P_Jass
                 }
                 for (int i = 0; i < item.Split('\n').Length; i++)
                 {
-                    if (i == 0)
-                    {
-                        Console.Write('╔');
-                        for (int x = 0; x < _lines[0].Length; x++)
-                        {
-                            Console.Write('─');
-                        }
-                        Console.WriteLine('╗');
-                    }
                     switch (_menuStyle)
-                {
-                    case MenuStyle.left:
-                        _currentWidth = 0;
-                        break;
-                    case MenuStyle.center:
-                        _currentWidth = Convert.ToByte(Console.WindowWidth / 2 - item.Length / 2);
-                        break;
-                    case MenuStyle.right:
-                        _currentWidth = Convert.ToByte(Console.WindowWidth - item.Length);
-                        break;
-                    default:
-                        _currentWidth = Convert.ToByte(Console.WindowWidth / 2 - item.Length / 2);
-                        break;
-                }
+                    {
+                        case MenuStyle.left:
+                            _currentWidth = 0;
+                            break;
+                        case MenuStyle.center:
+                            _currentWidth = Convert.ToByte(Console.WindowWidth / 2 - _lines[0].Length / 2);
+                            break;
+                        case MenuStyle.right:
+                            _currentWidth = Convert.ToByte(Console.WindowWidth - _lines[0].Length);
+                            break;
+                        default:
+                            _currentWidth = Convert.ToByte(Console.WindowWidth / 2 - _lines[0].Length / 2);
+                            break;
+                    }
 
                     Console.SetCursorPosition(_currentWidth, _currentLine + i);
                     Console.WriteLine(_lines[i]);
@@ -81,9 +75,31 @@ namespace P_Jass
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        private void CustomText(string text, char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
+        public void CustomText(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
         {
+            for (int i = 0; i < _menuNames.Count; i++)
+            {
+                string custom = "";
+                //Write top custom
+                custom += c1;
+                for (int x = 0; x < _menuNames[i].Length; x++)
+                {
+                    custom += horizontal;
+                }
+                custom += c2 + "\n";
+                //Write middle custom
+                custom += vertical + _menuNames[i] + vertical + "\n";
+                custom += c3;
+                for (int y = 0; y < _menuNames[i].Length; y++)
+                {
+                    custom += horizontal;
+                }
+                custom += c4;
 
+                _menuNames[i] = custom;
+                _nbrLines += 2;
+            }
+            _menuMarginBetween += 2;
         }
     }
 }
