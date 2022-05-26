@@ -1,4 +1,7 @@
-﻿using System;
+﻿/// Mathis Broquet
+/// ETML Lausanne
+/// 25.05.2022
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -25,6 +28,7 @@ namespace P_Jass
         private Dictionary<string, Tuple<int, int>> _menuCoords;
         private Random _random;
         private Tuple<int, int> _tuple;
+        private bool _isCustom;
 
         /// <summary>
         /// Constructor of the Menu
@@ -48,6 +52,7 @@ namespace P_Jass
             _tuple = null;
             _random = new Random();
             _menuCoords = new Dictionary<string, Tuple<int, int>>();
+            _isCustom = false;
             foreach (string item in _menuNames)
             {
                 for (int i = 0; i < item.Split("\n").Length; i++)
@@ -64,7 +69,8 @@ namespace P_Jass
         public void Display()
         {
             //Properties
-            _currentLine = Convert.ToByte((Console.WindowHeight - _menuNames.Count - _nbrLines - (_menuNames.Count - 2) * _menuMarginBetween)/2);
+            Console.Clear();
+            _currentLine = Convert.ToByte((Console.WindowHeight - (_menuNames.Count - 1) - _nbrLines - (_menuNames.Count - 3) * _menuMarginBetween)/2);
             Console.ForegroundColor = _color;
 
             //Write the menu
@@ -92,10 +98,15 @@ namespace P_Jass
                     }
 
                     Console.SetCursorPosition(_currentWidth, _currentLine + i);
-                    if (_lines[i].Contains(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2)))
+                    if(_lines[i]  == item)
                     {
                         _tuple = new Tuple<int, int>(_currentWidth, _currentLine + i);
-                        _menuCoords.Add(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2), _tuple);
+                        _menuCoords.TryAdd(item, _tuple);
+                    }
+                    else if (_lines[i].Contains(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2)))
+                    {
+                        _tuple = new Tuple<int, int>(_currentWidth, _currentLine + i);
+                        _menuCoords.TryAdd(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2), _tuple);
                     }
                     Console.WriteLine(_lines[i]);
 
@@ -121,6 +132,7 @@ namespace P_Jass
         /// <param name="horizontal">The horizontal character (between c1 & c2 && c3 & c4)</param>
         public void CustomText(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
         {
+            _isCustom = true;
             // Write the custom
             for (int i = 0; i < _menuNames.Count; i++)
             {
@@ -158,6 +170,7 @@ namespace P_Jass
             _before = 0;
             ConsoleKey key;
             Console.CursorVisible = false;
+            PrintSelector(_counter, selector);
             do
             {
                 key = Console.ReadKey(true).Key;
@@ -194,8 +207,15 @@ namespace P_Jass
                     _before = _counter;
                 }
             } while (key != ConsoleKey.Enter);
-            AnimationSelect(1);
-            return _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2);
+            if (_isCustom)
+            {
+                AnimationSelect(1);
+                return _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2);
+            }
+            else
+            {
+                return _menuNames[_counter];
+            }
         }
 
         /// <summary>
@@ -204,7 +224,14 @@ namespace P_Jass
         /// <param name="before">the previous selector</param>
         private void DeleteSelector(byte before)
         {
-            Console.SetCursorPosition(_menuCoords[_menuNames[before].Split("\n")[1].Substring(1, _menuNames[before].Split("\n")[1].Length - 2)].Item1 + _menuNames[before].Split("\n")[1].Substring(1, _menuNames[before].Split("\n")[1].Length - 2).Length + 2, _menuCoords[_menuNames[before].Split("\n")[1].Substring(1, _menuNames[before].Split("\n")[1].Length - 2)].Item2);
+            if (_isCustom)
+            {
+                Console.SetCursorPosition(_menuCoords[_menuNames[before].Split("\n")[1].Substring(1, _menuNames[before].Split("\n")[1].Length - 2)].Item1 + _menuNames[before].Split("\n")[1].Substring(1, _menuNames[before].Split("\n")[1].Length - 2).Length + 2, _menuCoords[_menuNames[before].Split("\n")[1].Substring(1, _menuNames[before].Split("\n")[1].Length - 2)].Item2);
+            }
+            else
+            {
+                Console.SetCursorPosition(_menuCoords[_menuNames[before]].Item1 + _menuNames[before].Length + 2, _menuCoords[_menuNames[before]].Item2);
+            }
             Console.Write("  ");
         }
 
@@ -214,7 +241,14 @@ namespace P_Jass
         /// <param name="counter">The actuel position of the selector</param>
         private void PrintSelector(byte counter, string selector)
         {
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+            if (_isCustom)
+            {
+                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+            }
+            else
+            {
+                Console.SetCursorPosition(_menuCoords[_menuNames[counter]].Item1 + _menuNames[counter].Length + 2, _menuCoords[_menuNames[counter]].Item2);
+            }
             Console.Write(selector);
         }
 

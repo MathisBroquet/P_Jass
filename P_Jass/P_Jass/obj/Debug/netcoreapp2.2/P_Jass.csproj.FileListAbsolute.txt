@@ -25,7 +25,6 @@ C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jas
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jass.runtimeconfig.dev.json
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jass.dll
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jass.pdb
-C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.csproj.AssemblyReference.cache
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.AssemblyInfoInputs.cache
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.AssemblyInfo.cs
@@ -33,3 +32,4 @@ C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jas
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.dll
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.pdb
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.genruntimeconfig.cache
+C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.csproj.AssemblyReference.cache
