@@ -1,4 +1,4 @@
-﻿/// Mathis Broquet
+/// Mathis Broquet
 /// ETML Lausanne
 /// 25.05.2022
 using System;
