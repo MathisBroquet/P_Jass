@@ -11,14 +11,14 @@ namespace P_Jass
     {
         //Properties
         private static List<string> menuNames = new List<string> { "jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Quitter" };
-        private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.DarkMagenta, 2);
+        private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.DarkMagenta, 2 );
 
         /// <summary>
         /// Main method
         /// </summary>
         private static void Main()
         {
-            menu.CustomText('╔', '╗', '╚', '╝');
+            menu.CustomText();
             DispplayAndAnimateMenu();
         }
 
