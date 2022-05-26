@@ -19,11 +19,12 @@ namespace P_Jass
         private byte _currentWidth;
         private string[] _lines;
         private byte _currentLine;
-        private string custom;
-        private byte counter;
-        private byte before;
+        private string _custom;
+        private byte _counter;
+        private byte _before;
         private Dictionary<string, Tuple<int, int>> _menuCoords;
-        private  Random _random;
+        private Random _random;
+        private Tuple<int, int> _tuple;
 
         /// <summary>
         /// Constructor of the Menu
@@ -40,6 +41,11 @@ namespace P_Jass
             _menuMarginBetween = menuMarginBetween;
             _nbrLines = 0;
             _currentWidth = 0;
+            _lines = null;
+            _currentLine = 0;
+            _custom = "";
+            _before = 0;
+            _tuple = null;
             _random = new Random();
             _menuCoords = new Dictionary<string, Tuple<int, int>>();
             foreach (string item in _menuNames)
@@ -88,8 +94,8 @@ namespace P_Jass
                     Console.SetCursorPosition(_currentWidth, _currentLine + i);
                     if (_lines[i].Contains(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2)))
                     {
-                        Tuple<int, int> tuple = new Tuple<int, int>(_currentWidth, _currentLine + i);
-                        _menuCoords.Add(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2), tuple);
+                        _tuple = new Tuple<int, int>(_currentWidth, _currentLine + i);
+                        _menuCoords.Add(item.Split("\n")[1].Substring(1, item.Split("\n")[1].Length - 2), _tuple);
                     }
                     Console.WriteLine(_lines[i]);
 
@@ -118,38 +124,38 @@ namespace P_Jass
             // Write the custom
             for (int i = 0; i < _menuNames.Count; i++)
             {
-                custom = "";
+                _custom = "";
                 //Write top custom
-                custom += c1;
+                _custom += c1;
                 for (int x = 0; x < _menuNames[i].Length; x++)
                 {
-                    custom += horizontal;
+                    _custom += horizontal;
                 }
-                custom += c2 + "\n";
+                _custom += c2 + "\n";
 
                 //Write middle custom
-                custom += vertical + _menuNames[i] + vertical + "\n";
+                _custom += vertical + _menuNames[i] + vertical + "\n";
 
                 //Write bottom custom
-                custom += c3;
+                _custom += c3;
                 for (int y = 0; y < _menuNames[i].Length; y++)
                 {
-                    custom += horizontal;
+                    _custom += horizontal;
                 }
-                custom += c4;
+                _custom += c4;
 
                 //Adjust the new properties to the custom
-                _menuNames[i] = custom;
+                _menuNames[i] = _custom;
                 _nbrLines += 2;
             }
             _nbrLines -= 2;
             _menuMarginBetween += 2;
         }
 
-        public void Slection(string selector = "◄═")
+        public string Slection(string selector = "◄═")
         {
-            counter = 0;
-            before = 0;
+            _counter = 0;
+            _before = 0;
             ConsoleKey key;
             Console.CursorVisible = false;
             do
@@ -158,37 +164,38 @@ namespace P_Jass
                 if (key == ConsoleKey.DownArrow)
                 {
                     //Set counter properties
-                    counter++;
-                    if (counter > _menuNames.Count - 1)
+                    _counter++;
+                    if (_counter > _menuNames.Count - 1)
                     {
-                        counter = 0;
+                        _counter = 0;
                     }
 
                     //Replace the selector at the next element
-                    DeleteSelector(before);
-                    PrintSelector(counter, selector);
+                    DeleteSelector(_before);
+                    PrintSelector(_counter, selector);
 
                     //Set the new previous before
-                    before = counter;
+                    _before = _counter;
                 }
                 else if (key == ConsoleKey.UpArrow)
                 {
                     //Set counter properties
-                    counter--;
-                    if (counter == 255)
+                    _counter--;
+                    if (_counter == 255)
                     {
-                        counter =  (byte)(_menuNames.Count - 1);
+                        _counter =  (byte)(_menuNames.Count - 1);
                     }
 
                     //Replace the selector at the previous element
-                    DeleteSelector(before);
-                    PrintSelector(counter, selector);
+                    DeleteSelector(_before);
+                    PrintSelector(_counter, selector);
 
                     //Set the new previous before
-                    before = counter;
+                    _before = _counter;
                 }
             } while (key != ConsoleKey.Enter);
             AnimationSelect(1);
+            return _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2);
         }
 
         /// <summary>
@@ -213,71 +220,90 @@ namespace P_Jass
 
         private void AnimationSelect(byte slowly)
         {
-            for (int i = 0; i < _menuNames[counter].Split("\n")[1].Length; i++)
+            #region Animation of the selector
+            for (int i = 0; i < _menuNames[_counter].Split("\n")[1].Length; i++)
             {
-                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - (i-1), _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+                Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - (i-1), _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2);
                 Console.Write("  ");
 
-                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2  - i, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+                Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2  - i, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2);
                 Console.Write("◄═");
 
                 Thread.Sleep(slowly);
             }
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[counter].Split("\n")[1].Length, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[_counter].Split("\n")[1].Length, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2);
             Console.Write("╠─ ");
 
             Thread.Sleep(slowly);
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[counter].Split("\n")[1].Length, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[_counter].Split("\n")[1].Length, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2);
             Console.Write("║ ");
 
             Thread.Sleep(slowly);
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[counter].Split("\n")[1].Length, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 - 1);
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[_counter].Split("\n")[1].Length, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 - 1);
             Console.Write("╔");
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[counter].Split("\n")[1].Length, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 + 1);
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - _menuNames[_counter].Split("\n")[1].Length, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 + 1);
             Console.Write("╚");
 
             Thread.Sleep(slowly);
+            #endregion
 
-            for (int i = _menuNames[counter].Split("\n")[1].Length - 1; i > 1; i--)
+            #region Animation of the horizontal lines
+            for (int i = _menuNames[_counter].Split("\n")[1].Length - 1; i > 1; i--)
             {
-                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - (i - 1), _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 +  1);
+                Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - (i - 1), _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 +  1);
                 Console.Write(" ");
 
-                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - i, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 + 1);
+                Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - i, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 + 1);
                 Console.Write("═");
 
-                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - (i - 1), _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 - 1);
+                Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - (i - 1), _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 - 1);
                 Console.Write(" ");
 
-                Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 2 - i, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 - 1);
+                Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 2 - i, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 - 1);
                 Console.Write("═");
 
                 Thread.Sleep(slowly);
             }
+            #endregion
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 1, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 - 1);
+            #region Animation of the end of the box
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 1, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 - 1);
             Console.Write("╗");
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 1, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2 + 1);
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 1, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2 + 1);
             Console.Write("╝");
 
             Thread.Sleep(slowly);
 
-            Console.SetCursorPosition(_menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2).Length + 1, _menuCoords[_menuNames[counter].Split("\n")[1].Substring(1, _menuNames[counter].Split("\n")[1].Length - 2)].Item2);
+            Console.SetCursorPosition(_menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length + 1, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2);
             Console.Write("║");
+            #endregion
 
-            for (int i = 100; i > 0; i++)
+            #region Animation Load
+            for (int i = 0; i < 3; i++)
             {
-                for (int x = 0; x < 10; x++)
+                for (int x = 0; x < _menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2).Length / 2; x++)
                 {
-                    Console.SetCursorPosition(_random.Next(Console.WindowWidth / i) + Console.WindowWidth/2, _random.Next(Console.WindowHeight / i) + Console.WindowHeight / 2);
-                    Console.Write(RandomSign());
+                    Console.SetCursorPosition(x *  2 + _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item1 + 1, _menuCoords[_menuNames[_counter].Split("\n")[1].Substring(1, _menuNames[_counter].Split("\n")[1].Length - 2)].Item2);
+                    if(i % 2 == 0)
+                    {
+                        Console.Write(" " + RandomSign());
+                        Thread.Sleep(slowly * 25);
+                    }
+                    else
+                    {
+                        Console.WriteLine("  ");
+                        Thread.Sleep(slowly * 50);
+
+                    }
+                    Thread.Sleep(slowly * 50);
                 }
             }
+            #endregion
         }
 
         private char RandomSign()
