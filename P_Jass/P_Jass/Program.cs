@@ -10,15 +10,15 @@ namespace P_Jass
     class Program
     {
         //Properties
-        private static List<string> menuNames = new List<string> { "jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Quitter" };
-        private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.DarkMagenta, 2 );
+        private static List<string> menuNames = new List<string> { "Jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Quitter" };
+        private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.Green, 2 );
 
         /// <summary>
         /// Main method
         /// </summary>
         private static void Main()
         {
-            menu.CustomText();
+            menu.CustomText('╔', '╗', '╚', '╝');
             DispplayAndAnimateMenu();
         }
 
@@ -35,7 +35,27 @@ namespace P_Jass
         /// </summary>
         private static void Parameter()
         {
-
+            List<string> parametersNames = new List<string> { "Pixel profile", "Nom de joueur",  "Volume", "Selection des cartes", "Retour" };
+            Menu parameters = new Menu(parametersNames, MenuHorizontal.center, ConsoleColor.Green, 1);
+            parameters.CustomText('╔', '╗', '╚', '╝');
+            parameters.Display();
+            switch (parameters.Slection())
+            {
+                case "Pixel profile":
+                    break;
+                case "Nom de joueur":
+                    break;
+                case "Volume":
+                    break;
+                case "Selection des cartes":
+                    break;
+                case "Retour":
+                    DispplayAndAnimateMenu();
+                    break;
+                default:
+                    Default();
+                    break;
+            }
         }
 
         /// <summary>
@@ -93,7 +113,7 @@ namespace P_Jass
             menu.Display();
             switch (menu.Slection())
             {
-                case "jouer":
+                case "Jouer":
                     Game();
                     break;
                 case "Paramètres":
