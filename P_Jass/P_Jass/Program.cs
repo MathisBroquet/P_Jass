@@ -44,6 +44,8 @@ namespace P_Jass
                 case "Pixel profile":
                     break;
                 case "Nom de joueur":
+                    Username username = new Username("Moi");
+                    username.Display();
                     break;
                 case "Volume":
                     break;

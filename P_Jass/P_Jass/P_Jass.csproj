@@ -6,5 +6,10 @@
     <ApplicationIcon></ApplicationIcon>
     <Win32Resource />
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Singleton\" />
+    <Folder Include="ObserverObservable\Volume\" />
+  </ItemGroup>
   
 </Project>
