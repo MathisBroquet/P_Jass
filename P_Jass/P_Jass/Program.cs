@@ -18,8 +18,9 @@ namespace P_Jass
         /// </summary>
         private static void Main()
         {
-            Username test = new Username("");
-            test.LimitTextEntery(10);
+            Console.SetWindowSize(160, 40);
+            Username test = new Username("Mathis");
+            test.Display();
             /*Console.SetWindowSize(240, 63);
             menu.CustomText('╔', '╗', '╚', '╝');
             DispplayAndAnimateMenu();*/
