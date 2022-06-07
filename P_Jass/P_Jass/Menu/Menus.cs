@@ -346,18 +346,14 @@ namespace P_Jass
             {
                 case 1:
                     return '♥';
-                    break;
                 case 2:
                     return '♦';
-                    break;
                 case 3:
                     return '♣';
-                    break;
                 case 4:
                     return '♠';
                 default:
                     return ' ';
-                    break;
             }
 
         }

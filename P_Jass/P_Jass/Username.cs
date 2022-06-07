@@ -3,11 +3,7 @@
 /// 25.05.2022
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace P_Jass
 {
@@ -17,7 +13,6 @@ namespace P_Jass
         private int _y;
         private string _username;
         private List<string> _allUsernames = new List<string>();
-        private List<string> _menuUsername;
         private string _regexUsername = @"[\w\d]{1,10}";
         private string temp = "";
         private int _limit;
@@ -25,50 +20,7 @@ namespace P_Jass
         public Username(string username)
         {
             _username = username;
-            _menuUsername = new List<string>{ @"__/\\\________/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\____/\\\\\\\\\______/\\\\\_____/\\\_____/\\\\\\\\\_____/\\\\____________/\\\\__/\\\\\\\\\\\\\\\_        ", @" _\/\\\_______\/\\\___/\\\/////////\\\_\/\\\///////////___/\\\///////\\\___\/\\\\\\___\/\\\___/\\\\\\\\\\\\\__\/\\\\\\________/\\\\\\_\/\\\///////////__       ", @"  _\/\\\_______\/\\\__\//\\\______\///__\/\\\_____________\/\\\_____\/\\\___\/\\\/\\\__\/\\\__/\\\/////////\\\_\/\\\//\\\____/\\\//\\\_\/\\\_____________      ", @"   _\/\\\_______\/\\\___\////\\\_________\/\\\\\\\\\\\_____\/\\\\\\\\\\\/____\/\\\//\\\_\/\\\_\/\\\_______\/\\\_\/\\\\///\\\/\\\/_\/\\\_\/\\\\\\\\\\\_____     ", @"    _\/\\\_______\/\\\______\////\\\______\/\\\///////______\/\\\//////\\\____\/\\\\//\\\\/\\\_\/\\\\\\\\\\\\\\\_\/\\\__\///\\\/___\/\\\_\/\\\///////______    ", @"     _\/\\\_______\/\\\_________\////\\\___\/\\\_____________\/\\\____\//\\\___\/\\\_\//\\\/\\\_\/\\\/////////\\\_\/\\\____\///_____\/\\\_\/\\\_____________   ", @"      _\//\\\______/\\\___/\\\______\//\\\__\/\\\_____________\/\\\_____\//\\\__\/\\\__\//\\\\\\_\/\\\_______\/\\\_\/\\\_____________\/\\\_\/\\\_____________  ", @"       __\///\\\\\\\\\/___\///\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\_\/\\\______\//\\\_\/\\\___\//\\\\\_\/\\\_______\/\\\_\/\\\_____________\/\\\_\/\\\\\\\\\\\\\\\_ ", @"        ____\/////////_______\///////////_____\///////////////__\///________\///__\///_____\/////__\///________\///__\///______________\///__\///////////////__" };
             _limit = 20;
-        }
-
-        private void Animate()
-        {
-            Console.CursorVisible = false;
-            for (int i = 0; i < _menuUsername[0].Length; i++)
-            {
-                for (int x = 0; x < _menuUsername.Count; x++)
-                {
-                    if (_menuUsername[x][i] == '/' || _menuUsername[x][i] == '\\')
-                    {
-                        Console.SetCursorPosition(i, x);
-                        Console.WriteLine('_');
-                    }
-                    if (x%49 == 1)
-                    {
-                        Thread.Sleep(1);
-                    }
-                }
-            }
-            Thread.Sleep(500);
-            for (int i = _menuUsername[0].Length - 1; i > -1; i--)
-            {
-                for (int x = _menuUsername.Count - 1; x > -1; x--)
-                {
-                    Console.SetCursorPosition(i, x);
-                    if(_menuUsername[x][i] == '_')
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-                    Console.WriteLine(_menuUsername[x][i]);
-                    if (x % 49 == 1)
-                    {
-                        Thread.Sleep(1);
-                    }
-                }
-            }
-            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         private void ChangeName(string newName)
@@ -106,14 +58,11 @@ namespace P_Jass
 
         public void Display()
         {
+            Title title = new Title();
+            title.Display();
+            title.Animate();
             _x = (Console.WindowWidth - _limit - 2) / 2;
-            _y = (Console.WindowHeight + _menuUsername.Count - 1 - temp.Split("\n").Length) / 2;
-            Console.Clear();
-            for (int i = 0; i < _menuUsername.Count; i++)
-            {
-                Console.WriteLine(_menuUsername[i]);
-            }
-            Animate();
+            _y = (Console.WindowHeight + title.Height - 1 - temp.Split("\n").Length) / 2;
             Custom();
             for (int i = 0; i < temp.Split("\n").Length; i++)
             {
@@ -121,51 +70,115 @@ namespace P_Jass
                 Console.WriteLine(temp.Split("\n")[i]);
             }
             Console.CursorVisible = true;
-            Console.SetCursorPosition(_x + _username.Length, _y - 2);
+            Console.SetCursorPosition(_x + _username.Length + 1, _y - 2);
             LimitTextEntery(_limit);
         }
         public void LimitTextEntery(int limit)
         {
             _limit = limit;
-            int nbrCharacter = _username.Length;
-            int cursor = _username.Length;
-            ConsoleKeyInfo key;
-            string value = _username;
-            bool max = false;
-            do
+            char[] chars = new char[limit];
+            ConsoleKeyInfo keyInfo;
+            int count = _username.Length;
+            int deplace = _username.Length;
+            bool done = false;
+
+            while (!done)
             {
-                key = Console.ReadKey(max);
-                if (key.Key == ConsoleKey.Backspace && nbrCharacter > 1)
+                keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Enter)
                 {
-                    cursor--;
-                    nbrCharacter--;
-                    Console.SetCursorPosition(_x + nbrCharacter, _y);
-                    Console.Write(' ');
-                    Console.SetCursorPosition(_x + nbrCharacter, _y);
-                    max = true;
+                    done = true;
                 }
-               else if (key.Key == ConsoleKey.LeftArrow && cursor > 1)
+                else if(Console.CursorLeft < _limit + _x + 1 && Console.CursorLeft >= _x + 1 || keyInfo.Key == ConsoleKey.Backspace)
                 {
-                    cursor--;
-                    Console.SetCursorPosition(_x + cursor, _y);
-                }
-                else if (key.Key == ConsoleKey.RightArrow && cursor <= limit)
-                {
-                    cursor++;
-                    Console.SetCursorPosition(_x + cursor, _y);
-                }
-                else if (nbrCharacter <= limit)
-                {
-                    max = false;
-                    cursor++;
-                    nbrCharacter++;
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.Backspace:
+                            if (count > 0)
+                            {
+                                Console.Write("\b \b");
+                                if (deplace >= _x + 1 && deplace < _x + _limit + 1)
+                                {
+                                    deplace--;
+                                }
+                                count--;
+                            }
+                            break;
+                        case ConsoleKey.Enter:
+                            done = true;
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            if(deplace >= _x + 1 && deplace <= count)
+                            {
+                                deplace--;
+                                Console.SetCursorPosition(deplace + _x + 1, _y);
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (deplace < _x + _limit + 1 && deplace <= count)
+                            {
+                                deplace++;
+                                Console.SetCursorPosition(deplace + _x + 1, _y);
+                            }
+                            break;
+                        default:
+                            if (count < chars.Length)
+                            {
+                                if (deplace != count)
+                                {
+                                    for (int i = 0; i < Math.Abs(deplace-count); i++)
+                                    {
+                                        chars[count + 1 + i] = chars[count + i];
+                                    }
+
+                                }
+                                chars[count] = keyInfo.KeyChar;
+                                Console.Write(keyInfo.KeyChar);
+                                deplace++;
+                                count++;
+                            }
+                            break;
+                    }
                 }
                 else
                 {
-                    max = true;
+
                 }
-                value += ;
-            } while (key.Key != ConsoleKey.Enter);
+            }
+
+            Console.WriteLine(chars);
+            //do
+            //{
+            //    key = Console.ReadKey(max);
+            //    if (key.Key == ConsoleKey.Backspace && nbrCharacter > 1)
+            //    {
+            //        cursor--;
+            //        nbrCharacter--;
+            //        Console.SetCursorPosition(_x + nbrCharacter, _y - 2);
+            //        Console.Write(' ');
+            //        Console.SetCursorPosition(_x + nbrCharacter, _y - 2);
+            //        max = true;
+            //    }
+            //   else if (key.Key == ConsoleKey.LeftArrow && cursor > 1)
+            //    {
+
+            //    }
+            //    else if (key.Key == ConsoleKey.RightArrow && cursor <= limit)
+            //    {
+
+            //    }
+            //    else if (nbrCharacter <= limit)
+            //    {
+            //        max = false;
+            //        cursor++;
+            //        nbrCharacter++;
+            //    }
+            //    else
+            //    {
+            //        max = true;
+            //    }
+            //    value += "";
+            //} while (key.Key != ConsoleKey.Enter);
         }
     }
 }
