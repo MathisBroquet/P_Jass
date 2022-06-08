@@ -3,7 +3,7 @@
 /// 25.05.2022
 using System;
 using System.Collections.Generic;
-using System.Net;
+using System.Text.RegularExpressions;
 
 namespace P_Jass
 {
@@ -19,8 +19,9 @@ namespace P_Jass
         private static void Main()
         {
             Console.SetWindowSize(160, 40);
-            Username test = new Username("Mathis ");
+            Username test = new Username("1234");
             test.Display();
+            test.ChangeName();
             /*Console.SetWindowSize(240, 63);
             menu.CustomText('╔', '╗', '╚', '╝');
             DispplayAndAnimateMenu();*/
