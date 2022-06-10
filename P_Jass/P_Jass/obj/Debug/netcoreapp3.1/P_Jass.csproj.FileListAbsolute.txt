@@ -12,3 +12,9 @@ C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp3.1\P_
 C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp3.1\P_Jass.dll
 C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp3.1\P_Jass.pdb
 C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp3.1\P_Jass.genruntimeconfig.cache
+C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp3.1\P_Jass.csproj.CopyComplete

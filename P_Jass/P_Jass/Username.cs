@@ -35,16 +35,16 @@ namespace P_Jass
 
         public void ChangeName()
         {
-            string newName = AdvencedInput.LimitTextEntery(_x + 1, _y - 2, _maxLength, _regexUsername, _username, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
+            string newName = P_Jass.Console.ReadLocation(_x + 1, _y - 2, _maxLength, _regexUsername, _username, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
 
             if (_regexUsername.IsMatch(newName) && !_allUsernames.Contains(newName))
             {
-                _username = newName;
-                _allUsernames.Add(newName);
+                _username = newName.Split('\0')[0];
+                _allUsernames.Add(_username);
             }
         }
 
-        public void Custom(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
+        private void Custom(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
         {
             temp = "";
             //Write top custom
@@ -71,18 +71,18 @@ namespace P_Jass
 
         public void Display()
         {
-            Title title = new Title();
+            Title title = new Title(new List<string> { @"__/\\\________/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\____/\\\\\\\\\______/\\\\\_____/\\\_____/\\\\\\\\\_____/\\\\____________/\\\\__/\\\\\\\\\\\\\\\_        ", @" _\/\\\_______\/\\\___/\\\/////////\\\_\/\\\///////////___/\\\///////\\\___\/\\\\\\___\/\\\___/\\\\\\\\\\\\\__\/\\\\\\________/\\\\\\_\/\\\///////////__       ", @"  _\/\\\_______\/\\\__\//\\\______\///__\/\\\_____________\/\\\_____\/\\\___\/\\\/\\\__\/\\\__/\\\/////////\\\_\/\\\//\\\____/\\\//\\\_\/\\\_____________      ", @"   _\/\\\_______\/\\\___\////\\\_________\/\\\\\\\\\\\_____\/\\\\\\\\\\\/____\/\\\//\\\_\/\\\_\/\\\_______\/\\\_\/\\\\///\\\/\\\/_\/\\\_\/\\\\\\\\\\\_____     ", @"    _\/\\\_______\/\\\______\////\\\______\/\\\///////______\/\\\//////\\\____\/\\\\//\\\\/\\\_\/\\\\\\\\\\\\\\\_\/\\\__\///\\\/___\/\\\_\/\\\///////______    ", @"     _\/\\\_______\/\\\_________\////\\\___\/\\\_____________\/\\\____\//\\\___\/\\\_\//\\\/\\\_\/\\\/////////\\\_\/\\\____\///_____\/\\\_\/\\\_____________   ", @"      _\//\\\______/\\\___/\\\______\//\\\__\/\\\_____________\/\\\_____\//\\\__\/\\\__\//\\\\\\_\/\\\_______\/\\\_\/\\\_____________\/\\\_\/\\\_____________  ", @"       __\///\\\\\\\\\/___\///\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\_\/\\\______\//\\\_\/\\\___\//\\\\\_\/\\\_______\/\\\_\/\\\_____________\/\\\_\/\\\\\\\\\\\\\\\_ ", @"        ____\/////////_______\///////////_____\///////////////__\///________\///__\///_____\/////__\///________\///__\///______________\///__\///////////////__" });
             title.Display();
             title.Animate();
-            _x = (Console.WindowWidth - _maxLength - 2) / 2;
-            _y = (Console.WindowHeight + title.Height - 1 - temp.Split("\n").Length) / 2;
+            _x = (System.Console.WindowWidth - _maxLength - 2) / 2;
+            _y = (System.Console.WindowHeight + title.Height - 1 - temp.Split("\n").Length) / 2;
             Custom();
             for (int i = 0; i < temp.Split("\n").Length; i++)
             {
-                Console.SetCursorPosition(_x, _y++);
-                Console.WriteLine(temp.Split("\n")[i]);
+                System.Console.SetCursorPosition(_x, _y++);
+                System.Console.WriteLine(temp.Split("\n")[i]);
             }
-            Console.CursorVisible = true;
+            System.Console.CursorVisible = true;
         }
     }
 }

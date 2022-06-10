@@ -16,18 +16,11 @@ namespace P_Jass
         /// Constructor
         /// </summary>
         /// <param name="menuUsername">List of all lines for the menu title (https://patorjk.com/software/taag/#p=display&f=Slant%20Relief&t=Type%20Something%20)</param>
-        public Title(List<string> menuUsername = null)
+        public Title(List<string> menuUsername)
         {
-            if (menuUsername == null)
-            {
-                _menuUsername = new List<string> { @"__/\\\________/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\____/\\\\\\\\\______/\\\\\_____/\\\_____/\\\\\\\\\_____/\\\\____________/\\\\__/\\\\\\\\\\\\\\\_        ", @" _\/\\\_______\/\\\___/\\\/////////\\\_\/\\\///////////___/\\\///////\\\___\/\\\\\\___\/\\\___/\\\\\\\\\\\\\__\/\\\\\\________/\\\\\\_\/\\\///////////__       ", @"  _\/\\\_______\/\\\__\//\\\______\///__\/\\\_____________\/\\\_____\/\\\___\/\\\/\\\__\/\\\__/\\\/////////\\\_\/\\\//\\\____/\\\//\\\_\/\\\_____________      ", @"   _\/\\\_______\/\\\___\////\\\_________\/\\\\\\\\\\\_____\/\\\\\\\\\\\/____\/\\\//\\\_\/\\\_\/\\\_______\/\\\_\/\\\\///\\\/\\\/_\/\\\_\/\\\\\\\\\\\_____     ", @"    _\/\\\_______\/\\\______\////\\\______\/\\\///////______\/\\\//////\\\____\/\\\\//\\\\/\\\_\/\\\\\\\\\\\\\\\_\/\\\__\///\\\/___\/\\\_\/\\\///////______    ", @"     _\/\\\_______\/\\\_________\////\\\___\/\\\_____________\/\\\____\//\\\___\/\\\_\//\\\/\\\_\/\\\/////////\\\_\/\\\____\///_____\/\\\_\/\\\_____________   ", @"      _\//\\\______/\\\___/\\\______\//\\\__\/\\\_____________\/\\\_____\//\\\__\/\\\__\//\\\\\\_\/\\\_______\/\\\_\/\\\_____________\/\\\_\/\\\_____________  ", @"       __\///\\\\\\\\\/___\///\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\_\/\\\______\//\\\_\/\\\___\//\\\\\_\/\\\_______\/\\\_\/\\\_____________\/\\\_\/\\\\\\\\\\\\\\\_ ", @"        ____\/////////_______\///////////_____\///////////////__\///________\///__\///_____\/////__\///________\///__\///______________\///__\///////////////__" };
-            }
-            else
-            {
-                _menuUsername = menuUsername;
-            }
+            _menuUsername = menuUsername;
 
-            _windowsHeight = Console.WindowHeight - _menuUsername.Count;
+            _windowsHeight = System.Console.WindowHeight - _menuUsername.Count;
             _height = _menuUsername.Count;
         }
 
@@ -36,14 +29,14 @@ namespace P_Jass
         /// </summary>
         public void Display()
         {
-            Console.Clear();
-            Console.SetWindowSize(_menuUsername[0].Length + 1, 40);
-            Console.BufferWidth = _menuUsername[0].Length + 1;
-            Console.BufferHeight = 40;
+            System.Console.Clear();
+            System.Console.SetWindowSize(_menuUsername[0].Length + 1, 40);
+            System.Console.BufferWidth = _menuUsername[0].Length + 1;
+            System.Console.BufferHeight = 40;
             for (int i = 0; i < _menuUsername.Count; i++)
             {
-                Console.SetCursorPosition(1, i);
-                Console.WriteLine(_menuUsername[i]);
+                System.Console.SetCursorPosition(1, i);
+                System.Console.WriteLine(_menuUsername[i]);
             }
         }
 
@@ -52,17 +45,17 @@ namespace P_Jass
         /// </summary>
         public void Animate()
         {
-            Console.CursorVisible = false;
+            System.Console.CursorVisible = false;
             for (int i = 0; i < _menuUsername[0].Length; i++)
             {
                 for (int x = 0; x < _menuUsername.Count; x++)
                 {
                     if (_menuUsername[x][i] == '/' || _menuUsername[x][i] == '\\')
                     {
-                        Console.SetCursorPosition(i + 1, x);
-                        Console.WriteLine('_');
+                        System.Console.SetCursorPosition(i + 1, x);
+                        System.Console.WriteLine('_');
                     }
-                    if (x % 49 == 1)
+                    if (x % _menuUsername.Count == 0)
                     {
                         Thread.Sleep(1);
                     }
@@ -73,23 +66,23 @@ namespace P_Jass
             {
                 for (int x = _menuUsername.Count - 1; x > -1; x--)
                 {
-                    Console.SetCursorPosition(i + 1, x);
+                    System.Console.SetCursorPosition(i + 1, x);
                     if (_menuUsername[x][i] == '_')
                     {
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        System.Console.ForegroundColor = ConsoleColor.Gray;
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        System.Console.ForegroundColor = ConsoleColor.Green;
                     }
-                    Console.WriteLine(_menuUsername[x][i]);
-                    if (x % 49 == 1)
+                    System.Console.WriteLine(_menuUsername[x][i]);
+                    if (x % _menuUsername.Count == 0)
                     {
                         Thread.Sleep(1);
                     }
                 }
             }
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         /// <summary>

@@ -3,6 +3,7 @@
 /// 25.05.2022
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text.RegularExpressions;
 
 namespace P_Jass
@@ -14,6 +15,7 @@ namespace P_Jass
         private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.Green, 2 );
         private static List<string> parametersNames = new List<string> { "Pixel profile", "Nom de joueur",  "Volume", "Selection des cartes", "Retour" };
         private static Menu parameters = new Menu(parametersNames, MenuHorizontal.center, ConsoleColor.Green, 1);
+        private static Username test = new Username("Damien Loup");
 
         /// <summary>
         /// Main method
@@ -38,7 +40,6 @@ namespace P_Jass
         /// </summary>
         private static void Parameter()
         {
-            Username test = new Username("Damien Loup");
             parameters.Display();
             switch (parameters.Slection())
             {
@@ -47,7 +48,7 @@ namespace P_Jass
                 case "Nom de joueur":
                     test.Display();
                     test.ChangeName();
-                    DispplayAndAnimateMenu();
+                    Parameter();
                     break;
                 case "Volume":
                     break;
@@ -59,6 +60,18 @@ namespace P_Jass
                 default:
                     Default();
                     break;
+
+/*╔─╗ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠
+  │♠│ │R│ │D│ │V│ │X│ │9│ │8│ │7│ │6│
+  ╚─╝ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠
+  
+  ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ╔─╗
+  │6│ │7│ │8│ │9│ │X│ │V│ │D│ │R│ │♠│
+  ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ♠─♠ ╚─╝
+  
+  ╔─╗ ╔─╗ ╔─╗ ╔─╗ ♠─♠ ♥─♥ ♣─♣ ♦─♦ ♠─♠
+  │♠│ │♥│ │♣│ │♦│ │R│ │R│ │R│ │R│ │D│
+  ╚─╝ ╚─╝ ╚─╝ ╚─╝ ♠─♠ ♥─♥ ♣─♣ ♦─♦ ♠─♠*/
             }
         }
 
@@ -99,8 +112,8 @@ namespace P_Jass
         /// </summary>
         private static void Default()
         {
-            Console.Clear();
-            Console.WriteLine("Une erreur est survenue");
+            System.Console.Clear();
+            System.Console.WriteLine("Une erreur est survenue");
             List<string> defaultError = new List<string> {"Revenir  au menu" };
             Menu menuDefault = new Menu(defaultError, MenuHorizontal.left, ConsoleColor.Green);
             menuDefault.CustomText();

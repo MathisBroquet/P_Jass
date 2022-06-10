@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "s7NPQAy0kMPH3Vt7GAQ3bnnCt9rYIbes58TrOx5KX92+NeqLyaaMaYFeV6Fl5TPo/+l81qxCgQN9ZFm4SXaPQg==",
+  "dgSpecHash": "SC3jbFQAvmys/gprGPjTFp+xiatxFn/roVmH42pgBMWbDa8z+1VO6dRmVIbceI1drYIW7FBaoY6LDKwWCYriqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mathis\\Documents\\GitHub\\P_Jass\\P_Jass\\P_Jass\\P_Jass.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Mathis\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Mathis\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

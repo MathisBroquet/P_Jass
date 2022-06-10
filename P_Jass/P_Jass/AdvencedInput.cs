@@ -6,9 +6,9 @@ using System.Threading;
 
 namespace P_Jass
 {
-    class AdvencedInput
+    public static class Console
     {
-        public static String LimitTextEntery(int left, int top, int maxLength, Regex regex, string str = "", string message = "")
+        public static String ReadLocation(int left, int top, int maxLength, Regex regex, string str = "", string message = "")
         {
             //Properties
             char[] chars = new char[maxLength];
@@ -20,12 +20,12 @@ namespace P_Jass
             {
                 chars[i] = str[i];
             }   //Put the actuel username
-            Console.SetCursorPosition(left + count, top);
+            System.Console.SetCursorPosition(left + count, top);
 
             //Modify the username
             while (!done)
             {
-                keyInfo = Console.ReadKey(true);
+                keyInfo = System.Console.ReadKey(true);
                 //Try to save the new username
                 if (keyInfo.Key == ConsoleKey.Enter)
                 {
@@ -51,7 +51,7 @@ namespace P_Jass
                     }
                 }
                 //Save the user input for his username
-                else if (Console.CursorLeft < maxLength + left && Console.CursorLeft >= left || keyInfo.Key == ConsoleKey.Backspace || keyInfo.Key == ConsoleKey.LeftArrow)
+                else if (System.Console.CursorLeft < maxLength + left && System.Console.CursorLeft >= left || keyInfo.Key == ConsoleKey.Backspace || keyInfo.Key == ConsoleKey.LeftArrow)
                 {
                     switch (keyInfo.Key)
                     {
@@ -66,19 +66,19 @@ namespace P_Jass
                                         chars[deplace + i - 1] = chars[deplace + i];
                                     }
 
-                                    Console.SetCursorPosition(left, top);
+                                    System.Console.SetCursorPosition(left, top);
                                     for (int i = 0; i < chars.Length; i++)
                                     {
-                                        Console.Write(chars[i]);
+                                        System.Console.Write(chars[i]);
                                     }
-                                    Console.SetCursorPosition(left + deplace + 1, top);
+                                    System.Console.SetCursorPosition(left + deplace + 1, top);
                                 }
                                 else if(deplace == 0)
                                 {
                                 }
                                 else
                                 {
-                                    Console.Write("\b \b");
+                                    System.Console.Write("\b \b");
                                 }
 
                                 if (deplace >= 1 && deplace < maxLength + 1)
@@ -103,14 +103,14 @@ namespace P_Jass
                             if (left + deplace > left && deplace - 1 <= count)
                             {
                                 deplace--;
-                                Console.SetCursorPosition(deplace + left, top);
+                                System.Console.SetCursorPosition(deplace + left, top);
                             }
                             break;
                         case ConsoleKey.RightArrow:
                             if (deplace < left + maxLength && deplace < count && deplace >= 0)
                             {
                                 deplace++;
-                                Console.SetCursorPosition(deplace + left, top);
+                                System.Console.SetCursorPosition(deplace + left, top);
                             }
                             break;
                         case ConsoleKey.Delete:
@@ -121,13 +121,13 @@ namespace P_Jass
                                     chars[deplace + i - 1] = chars[deplace + i];
                                 }
 
-                                Console.SetCursorPosition(left, top);
+                                System.Console.SetCursorPosition(left, top);
                                 chars[count - 1] = '\0';
                                 for (int i = 0; i < chars.Length; i++)
                                 {
-                                    Console.Write(chars[i]);
+                                    System.Console.Write(chars[i]);
                                 }
-                                Console.SetCursorPosition(left + deplace + 1, top);
+                                System.Console.SetCursorPosition(left + deplace + 1, top);
                                 count--;
                             }
                             break;
@@ -146,17 +146,17 @@ namespace P_Jass
 
                                     chars[deplace] = keyInfo.KeyChar;
 
-                                    Console.SetCursorPosition(left, top);
+                                    System.Console.SetCursorPosition(left, top);
                                     for (int i = 0; i < chars.Length; i++)
                                     {
-                                        Console.Write(chars[i]);
+                                        System.Console.Write(chars[i]);
                                     }
-                                    Console.SetCursorPosition(left + deplace + 1, top);
+                                    System.Console.SetCursorPosition(left + deplace + 1, top);
                                 }
                                 else
                                 {
                                     chars[count] = keyInfo.KeyChar;
-                                    Console.Write(keyInfo.KeyChar);
+                                    System.Console.Write(keyInfo.KeyChar);
                                 }
                                 deplace++;
                                 count++;
@@ -166,38 +166,38 @@ namespace P_Jass
 
                     if (regex.IsMatch(new String(chars)))
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.SetCursorPosition(left - 1, top - 1);
-                        Console.Write('╔');
-                        Console.SetCursorPosition(left + maxLength, top - 1);
-                        Console.Write('╗');
-                        Console.SetCursorPosition(left - 1, top + 1);
-                        Console.Write('╚');
-                        Console.SetCursorPosition(left + maxLength, top + 1);
-                        Console.Write('╝');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(left, top + 2);
+                        System.Console.ForegroundColor = ConsoleColor.Green;
+                        System.Console.SetCursorPosition(left - 1, top - 1);
+                        System.Console.Write('╔');
+                        System.Console.SetCursorPosition(left + maxLength, top - 1);
+                        System.Console.Write('╗');
+                        System.Console.SetCursorPosition(left - 1, top + 1);
+                        System.Console.Write('╚');
+                        System.Console.SetCursorPosition(left + maxLength, top + 1);
+                        System.Console.Write('╝');
+                        System.Console.ForegroundColor = ConsoleColor.Gray;
+                        System.Console.SetCursorPosition(left, top + 2);
                         for (int i = 0; i < message.Length; i++)
                         {
-                            Console.Write(' ');
+                            System.Console.Write(' ');
                         }
-                        Console.SetCursorPosition(left + deplace, top);
+                        System.Console.SetCursorPosition(left + deplace, top);
 
                     }
                     else if (!regex.IsMatch(new String(chars)))
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.SetCursorPosition(left - 1, top - 1);
-                        Console.Write('╔');
-                        Console.SetCursorPosition(left + maxLength, top - 1);
-                        Console.Write('╗');
-                        Console.SetCursorPosition(left - 1, top + 1);
-                        Console.Write('╚');
-                        Console.SetCursorPosition(left + maxLength, top + 1);
-                        Console.Write('╝');
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        System.Console.ForegroundColor = ConsoleColor.Red;
+                        System.Console.SetCursorPosition(left - 1, top - 1);
+                        System.Console.Write('╔');
+                        System.Console.SetCursorPosition(left + maxLength, top - 1);
+                        System.Console.Write('╗');
+                        System.Console.SetCursorPosition(left - 1, top + 1);
+                        System.Console.Write('╚');
+                        System.Console.SetCursorPosition(left + maxLength, top + 1);
+                        System.Console.Write('╝');
+                        System.Console.ForegroundColor = ConsoleColor.Gray;
 
-                        Console.SetCursorPosition(left + deplace, top);
+                        System.Console.SetCursorPosition(left + deplace, top);
                     }
                 }
             }
@@ -206,17 +206,17 @@ namespace P_Jass
 
         private static void error(int left, int top, int deplace, string message)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(left, top + 2);
-            Console.Write(message);
-            Console.ForegroundColor = ConsoleColor.Gray;
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.SetCursorPosition(left, top + 2);
+            System.Console.Write(message);
+            System.Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.SetCursorPosition(left + deplace, top);
+            System.Console.SetCursorPosition(left + deplace, top);
             Thread.Sleep(10000);
             for (int i = 0; i < message.Length; i++)
             {
-                Console.SetCursorPosition(left + i, top + 2);
-                Console.Write(' ');
+                System.Console.SetCursorPosition(left + i, top + 2);
+                System.Console.Write(' ');
             }
         }
     }
