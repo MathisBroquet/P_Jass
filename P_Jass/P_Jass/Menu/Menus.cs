@@ -70,6 +70,7 @@ namespace P_Jass
         {
             //Properties
             Console.Clear();
+            Console.SetWindowSize(240, 63);
             _currentLine = Convert.ToByte((Console.WindowHeight - (_menuNames.Count - 1) - _nbrLines - (_menuNames.Count - 3) * _menuMarginBetween)/2);
             Console.ForegroundColor = _color;
 

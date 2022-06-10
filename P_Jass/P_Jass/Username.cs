@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace P_Jass
 {
@@ -35,9 +36,6 @@ namespace P_Jass
         public void ChangeName()
         {
             string newName = AdvencedInput.LimitTextEntery(_x + 1, _y - 2, _maxLength, _regexUsername, _username, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine(newName);
 
             if (_regexUsername.IsMatch(newName) && !_allUsernames.Contains(newName))
             {
@@ -46,8 +44,9 @@ namespace P_Jass
             }
         }
 
-        private void Custom(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
+        public void Custom(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')
         {
+            temp = "";
             //Write top custom
             temp += c1;
             for (int x = 0; x < _maxLength; x++)

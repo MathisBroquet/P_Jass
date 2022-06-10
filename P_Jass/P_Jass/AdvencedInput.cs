@@ -58,7 +58,7 @@ namespace P_Jass
                         case ConsoleKey.Backspace:
                             //If a minimum of one character is present
                             if (count > 0)
-                            {
+                           {
                                 if (deplace != count && count < maxLength - 1 && left + deplace > left)
                                 {
                                     for (int i = 0; i <= count - deplace + 1; i++)
@@ -90,7 +90,7 @@ namespace P_Jass
                                     chars[count] = '\0';
                                 }
 
-                                if (deplace != 0)
+                                if (count >= 1 && count < maxLength + 1)
                                 {
                                     count--;
                                 }
@@ -107,29 +107,32 @@ namespace P_Jass
                             }
                             break;
                         case ConsoleKey.RightArrow:
-                            if (deplace < left + maxLength && deplace < count || deplace == 0)
+                            if (deplace < left + maxLength && deplace < count && deplace >= 0)
                             {
                                 deplace++;
                                 Console.SetCursorPosition(deplace + left, top);
                             }
                             break;
                         case ConsoleKey.Delete:
-                            for (int i = 1; i < count - deplace; i++)
+                            if (deplace < count)
                             {
-                                chars[deplace + i - 1] = chars[deplace + i];
-                            }
+                                for (int i = 1; i < count - deplace; i++)
+                                {
+                                    chars[deplace + i - 1] = chars[deplace + i];
+                                }
 
-                            Console.SetCursorPosition(left, top);
-                            for (int i = 0; i < chars.Length; i++)
-                            {
-                                chars[chars.Length - 1 - i] = '\0';
-                                Console.Write(chars[i]);
+                                Console.SetCursorPosition(left, top);
+                                chars[count - 1] = '\0';
+                                for (int i = 0; i < chars.Length; i++)
+                                {
+                                    Console.Write(chars[i]);
+                                }
+                                Console.SetCursorPosition(left + deplace + 1, top);
+                                count--;
                             }
-                            Console.SetCursorPosition(left + deplace + 1, top);
-                            count--;
                             break;
                         default:
-                            if (count < chars.Length)
+                            if (count < chars.Length && keyInfo.KeyChar <= 254 && keyInfo.KeyChar >= 32)
                             {
                                 if (deplace != count && count < maxLength)
                                 {

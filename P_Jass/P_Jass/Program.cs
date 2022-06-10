@@ -12,19 +12,17 @@ namespace P_Jass
         //Properties
         private static List<string> menuNames = new List<string> { "Jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Quitter" };
         private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.Green, 2 );
+        private static List<string> parametersNames = new List<string> { "Pixel profile", "Nom de joueur",  "Volume", "Selection des cartes", "Retour" };
+        private static Menu parameters = new Menu(parametersNames, MenuHorizontal.center, ConsoleColor.Green, 1);
 
         /// <summary>
         /// Main method
         /// </summary>
         private static void Main()
         {
-            Console.SetWindowSize(160, 40);
-            Username test = new Username("1234");
-            test.Display();
-            test.ChangeName();
-            /*Console.SetWindowSize(240, 63);
+            parameters.CustomText('╔', '╗', '╚', '╝');
             menu.CustomText('╔', '╗', '╚', '╝');
-            DispplayAndAnimateMenu();*/
+            DispplayAndAnimateMenu();
         }
 
         /// <summary>
@@ -40,17 +38,16 @@ namespace P_Jass
         /// </summary>
         private static void Parameter()
         {
-            List<string> parametersNames = new List<string> { "Pixel profile", "Nom de joueur",  "Volume", "Selection des cartes", "Retour" };
-            Menu parameters = new Menu(parametersNames, MenuHorizontal.center, ConsoleColor.Green, 1);
-            parameters.CustomText('╔', '╗', '╚', '╝');
+            Username test = new Username("Damien Loup");
             parameters.Display();
             switch (parameters.Slection())
             {
                 case "Pixel profile":
                     break;
                 case "Nom de joueur":
-                    Username username = new Username("Moi");
-                    username.Display();
+                    test.Display();
+                    test.ChangeName();
+                    DispplayAndAnimateMenu();
                     break;
                 case "Volume":
                     break;
