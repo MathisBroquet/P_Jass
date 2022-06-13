@@ -167,8 +167,12 @@ namespace P_Jass
             _menuMarginBetween += 2;
         }
 
-        public string Slection(string selector = "◄═")
+        public string Slection(string selector = "◄═", bool isCustom = false)
         {
+            if (isCustom)
+            {
+                _isCustom = isCustom;
+            }
             _counter = 0;
             _before = 0;
             ConsoleKey key;
