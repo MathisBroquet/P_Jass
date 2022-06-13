@@ -33,7 +33,21 @@ namespace P_Jass
             }
         }
 
-        public void ChangeName()
+        public Username([Optional]Regex regex)
+        {
+            _username = "";
+            _maxLength = 20;
+            if (regex == null)
+            {
+                _regexUsername = new Regex(@"^[\d]+");
+            }
+            else
+            {
+                _regexUsername = regex;
+            }
+        }
+
+        public string ChangeName()
         {
             string newName = P_Jass.Console.ReadLocation(_x + 1, _y - 2, _maxLength, _regexUsername, _username, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
 
@@ -41,7 +55,9 @@ namespace P_Jass
             {
                 _username = newName.Split('\0')[0];
                 _allUsernames.Add(_username);
+                return newName.Split('\0')[0];
             }
+            return "";
         }
 
         private void Custom(char c1 = '┌', char c2 = '┐', char c3 = '└', char c4 = '┘', char vertical = '│', char horizontal = '─')

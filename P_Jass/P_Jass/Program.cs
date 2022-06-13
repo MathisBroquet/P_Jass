@@ -11,19 +11,60 @@ namespace P_Jass
     class Program
     {
         //Properties
-        private static List<string> menuNames = new List<string> { "Jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Quitter" };
-        private static Menu menu = new Menu(menuNames, MenuHorizontal.center , ConsoleColor.Green, 2 );
-        private static List<string> parametersNames = new List<string> { "Pixel profile", "Nom de joueur",  "Volume", "Selection des cartes", "Retour" };
-        private static Menu parameters = new Menu(parametersNames, MenuHorizontal.center, ConsoleColor.Green, 1);
-        private static Username test = new Username("Damien Loup");
+        private static List<string> _mainMenu = new List<string> { "Se connecter", "Créer un compte", "Quitter"};
+        private static Menu _menuMain = new Menu(_mainMenu, MenuHorizontal.center, ConsoleColor.Green, 5);
+        private static List<string> _nameMenu = new List<string> { "Jouer", "Paramètres", "Comment jouer", "Aide", "Stats", "Logout", "Quitter" };
+        private static Menu _menuName = new Menu(_nameMenu, MenuHorizontal.center , ConsoleColor.Green, 2 );
+        private static List<string> _parameterMenu = new List<string> { "Pixel profile", "Nom de joueur",  "Volume", "Selection des cartes", "Retour" };
+        private static Menu _menuParameter = new Menu(_parameterMenu, MenuHorizontal.center, ConsoleColor.Green, 1);
+        private static Username _username;
+        private static Title _login = new Title(new List<string> { @"__/\\\___________________/\\\\\__________/\\\\\\\\\\\\__/\\\\\\\\\\\__/\\\\\_____/\\\_        ", @" _\/\\\_________________/\\\///\\\______/\\\//////////__\/////\\\///__\/\\\\\\___\/\\\_       ", @"  _\/\\\_______________/\\\/__\///\\\___/\\\_________________\/\\\_____\/\\\/\\\__\/\\\_      ", @"   _\/\\\______________/\\\______\//\\\_\/\\\____/\\\\\\\_____\/\\\_____\/\\\//\\\_\/\\\_     ", @"    _\/\\\_____________\/\\\_______\/\\\_\/\\\___\/////\\\_____\/\\\_____\/\\\\//\\\\/\\\_    ", @"     _\/\\\_____________\//\\\______/\\\__\/\\\_______\/\\\_____\/\\\_____\/\\\_\//\\\/\\\_   ", @"      _\/\\\______________\///\\\__/\\\____\/\\\_______\/\\\_____\/\\\_____\/\\\__\//\\\\\\_  ", @"       _\/\\\\\\\\\\\\\\\____\///\\\\\/_____\//\\\\\\\\\\\\/___/\\\\\\\\\\\_\/\\\___\//\\\\\_ ", @"        _\///////////////_______\/////________\////////////____\///////////__\///_____\/////__" });
 
         /// <summary>
         /// Main method
         /// </summary>
         private static void Main()
         {
-            parameters.CustomText('╔', '╗', '╚', '╝');
-            menu.CustomText('╔', '╗', '╚', '╝');
+            System.Console.Clear();
+            Custom();
+            SecondaryMain();
+        }
+
+        /// <summary>
+        /// Custom all menu string
+        /// </summary>
+        private static void Custom()
+        {
+            _menuMain.CustomText('╔', '╗', '╚', '╝');
+            _menuParameter.CustomText('╔', '╗', '╚', '╝');
+            _menuName.CustomText('╔', '╗', '╚', '╝');
+        }
+
+        /// <summary>
+        /// Is the secondary main to fix bug with the custom wenn we logout
+        /// </summary>
+        private static void SecondaryMain()
+        {
+            _login.Display();
+            _login.Animate();
+            _menuMain.Display(false);
+            _username = new Username();
+            switch (_menuMain.Slection())
+            {
+                case "Se connecter":
+                    _username.Display();
+                    _username.ChangeName();
+                    break;
+                case "Créer un compte":
+                    _username.Display();
+                    _username.ChangeName();
+                    break;
+                case "Quitter":
+                    Exit();
+                    break;
+                default:
+                    break;
+            }
             DispplayAndAnimateMenu();
         }
 
@@ -40,19 +81,25 @@ namespace P_Jass
         /// </summary>
         private static void Parameter()
         {
-            parameters.Display();
-            switch (parameters.Slection())
+            //Reset properties
+            System.Console.Clear();
+            _menuParameter.Display(true);
+
+            switch (_menuParameter.Slection())
             {
                 case "Pixel profile":
+                    Parameter();
                     break;
                 case "Nom de joueur":
-                    test.Display();
-                    test.ChangeName();
+                    _username.Display();
+                    _username.ChangeName();
                     Parameter();
                     break;
                 case "Volume":
+                    Parameter();
                     break;
                 case "Selection des cartes":
+                    Parameter();
                     break;
                 case "Retour":
                     DispplayAndAnimateMenu();
@@ -117,7 +164,7 @@ namespace P_Jass
             List<string> defaultError = new List<string> {"Revenir  au menu" };
             Menu menuDefault = new Menu(defaultError, MenuHorizontal.left, ConsoleColor.Green);
             menuDefault.CustomText();
-            menuDefault.Display();
+            menuDefault.Display(true);
             menuDefault.Slection();
             DispplayAndAnimateMenu();
         }
@@ -127,8 +174,9 @@ namespace P_Jass
         /// </summary>
         private static void DispplayAndAnimateMenu()
         {
-            menu.Display();
-            switch (menu.Slection())
+            System.Console.Clear();
+            _menuName.Display(true);
+            switch (_menuName.Slection())
             {
                 case "Jouer":
                     Game();
@@ -144,6 +192,9 @@ namespace P_Jass
                     break;
                 case "Stats":
                     Stats();
+                    break;
+                case "Logout":
+                    SecondaryMain();
                     break;
                 case "Quitter":
                     Exit();

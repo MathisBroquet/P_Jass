@@ -66,11 +66,13 @@ namespace P_Jass
         /// <summary>
         /// Display the menu
         /// </summary>
-        public void Display()
+        public void Display(bool resize)
         {
             //Properties
-            System.Console.Clear();
-            System.Console.SetWindowSize(240, 63);
+            if (resize)
+            {
+                System.Console.SetWindowSize(240, 63);
+            }
             _currentLine = Convert.ToByte((System.Console.WindowHeight - (_menuNames.Count - 1) - _nbrLines - (_menuNames.Count - 3) * _menuMarginBetween)/2);
             System.Console.ForegroundColor = _color;
 

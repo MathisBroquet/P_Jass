@@ -11,3 +11,14 @@ C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_
 C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.dll
 C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.pdb
 C:\Users\Mathis\Documents\GitHub\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.genruntimeconfig.cache
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.1\P_Jass.deps.json
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.1\P_Jass.runtimeconfig.json
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.1\P_Jass.runtimeconfig.dev.json
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.1\P_Jass.dll
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.1\P_Jass.pdb
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.csprojAssemblyReference.cache
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.csproj.CoreCompileInputs.cache
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.AssemblyInfoInputs.cache
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.AssemblyInfo.cs
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.dll
+C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.1\P_Jass.pdb
