@@ -34,8 +34,11 @@ namespace P_Jass
         private static void Main()
         {
             System.Console.Clear();
-            Custom();
-            SecondaryMain();
+            Presentation presentation = new Presentation("TEST", "Bonsoir, je m'appelle Emilien et j'aime les beuteux et lsdjgf asdf sad fs afd sa fd sad f sadf sa fd as df");
+            presentation.Display();
+            System.Console.Read();
+            /*Custom();
+            SecondaryMain();*/
         }
 
         /// <summary>
