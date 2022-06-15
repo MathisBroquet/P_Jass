@@ -14,6 +14,11 @@ namespace P_Jass
         private int _x;
         private int _y;
         private string _username;
+        public string username
+        {
+            get { return _username; }
+        }
+
         private List<string> _allUsernames = new List<string>();
         private Regex _regexUsername;
         private string temp = "";

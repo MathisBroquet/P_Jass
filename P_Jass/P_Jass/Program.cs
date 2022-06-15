@@ -33,11 +33,15 @@ namespace P_Jass
         /// </summary>
         private static void Main()
         {
+            var test = Encode.ProtectPassword("Mathis");
+            Encode.UnprotectPassword(test);
             System.Console.Clear();
-            Presentation presentation = new Presentation("TEST", "Bonsoir, je m'appelle Emilien et j'aime les beuteux et lsdjgf asdf sad fs afd sa fd sad f sadf sa fd as df");
-            presentation.Display();
-            System.Console.Read();
-            /*Custom();
+            Slide presentation = new Slide("Aide", "Dans ce jeu les touches sont les suivantes: ↕ pour monter\n ou\n decendre dans les menus\n1234567890");
+            Slide presentation2 = new Slide("123456", "Bonsoir", "DAMMM LES GENS");
+            Presentation presentation1 = new Presentation(new List<Slide> { presentation, presentation2 });
+            presentation1.Start();
+            /*System.Console.SetWindowSize(190, 30);
+            Custom();
             SecondaryMain();*/
         }
 
@@ -62,6 +66,7 @@ namespace P_Jass
             _username = new Username();
             SecondaryMainSelection();
             DispplayAndAnimateMenu();
+
         }
 
         private static void SecondaryMainSelection()
@@ -142,7 +147,11 @@ namespace P_Jass
         /// </summary>
         private static void Help()
         {
-
+            Slide presentation = new Slide("Aide", "Dans ce jeu les touches sont les suivantes: ↕ pour monter\n ou\n decendre dans les menus\n1234567890");
+            Slide presentation2 = new Slide("123456", "Bonsoir", "DAMMM LES GENS");
+            Presentation presentation1 = new Presentation(new List<Slide> { presentation, presentation2 });
+            presentation1.Start();
+            DispplayAndAnimateMenu();
         }
 
         /// <summary>
