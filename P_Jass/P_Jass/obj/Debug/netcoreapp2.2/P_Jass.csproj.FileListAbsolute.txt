@@ -19,7 +19,6 @@ C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.Ass
 C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.AssemblyInfo.cs
 C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.dll
 C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.pdb
-C:\Users\pm17cxg\Desktop\P_Jass\P_Jass\P_Jass\obj\Debug\netcoreapp2.2\P_Jass.csprojAssemblyReference.cache
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jass.deps.json
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jass.runtimeconfig.json
 C:\Users\Moi\Desktop\C#_Perso\P_Jass\P_Jass\P_Jass\bin\Debug\netcoreapp2.2\P_Jass.runtimeconfig.dev.json

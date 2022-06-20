@@ -12,6 +12,13 @@ namespace P_Jass
         private string _name;
         private int _password;
         private List<Player> _players = new List<Player>(4);
+        private List<Game> _games = new List<Game>();
+        public List<Game> Games
+        {
+            get { return _games; }
+            set { _games = value; }
+        }
+
 
         public Game(string name, int password, Player player)
         {
@@ -20,6 +27,7 @@ namespace P_Jass
             _name = name;
             _password = password;
             _players.Add(player);
+            _games.Add(this);
         }
     }
 }

@@ -31,7 +31,6 @@ namespace P_Jass
             using (var rngCsp = new RNGCryptoServiceProvider())
             {
                 rngCsp.GetNonZeroBytes(salt);
-                rngCsp.
             }
             System.Console.WriteLine($"Salt: {Convert.ToBase64String(salt)}");
 
