@@ -33,19 +33,19 @@ namespace P_Jass
         /// </summary>
         private static void Main()
         {
-            Type type = new Type("K", "4");
+            /*Type type = new Type("K", "4");
             Sign sign = new Sign('♥', Color.Red);
             Card card0 = new Card(type, sign, true);
             List<Card> cards = new List<Card>() { card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0, card0};
-            card0.Cut(cards);
+            card0.Cut(cards);*/
 
-            Slide presentation = new Slide("Aide", "Dans ce jeu les touches sont les suivantes: ↕ pour monter\n ou\n decendre dans les menus\n1234567890");
+            /*Slide presentation = new Slide("Aide", "Dans ce jeu les touches sont les suivantes: ↕ pour monter\n ou\n decendre dans les menus\n1234567890");
             Slide presentation2 = new Slide("123456", "Bonsoir", "DAMMM LES GENS");
             Presentation presentation1 = new Presentation(new List<Slide> { presentation, presentation2 });
-            presentation1.Start();
-            /*System.Console.SetWindowSize(190, 30);
+            presentation1.Start();*/
+            System.Console.SetWindowSize(190, 30);
             Custom();
-            SecondaryMain();*/
+            SecondaryMain();
         }
 
         /// <summary>
