@@ -14,6 +14,13 @@ namespace P_Jass
         private bool _atout;
         private bool _shuffle;
         private bool _cut;
+        private List<Card> _cards;
+        public List<Card> Cards
+        {
+            get { return _cards; }
+            set { _cards = value; }
+        }
+
         public IPAddress IpAddress
         {
             get { return _ipAddress; }
@@ -35,6 +42,7 @@ namespace P_Jass
                 _classe = "";
             }
             _identifiant = Environment.UserName;
+            _cards = new List<Card>(9);
         }
 
         public void CreateGame(string name, int password)

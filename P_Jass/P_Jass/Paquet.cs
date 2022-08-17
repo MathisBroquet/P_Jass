@@ -11,43 +11,73 @@ namespace P_Jass
     class Paquet
     {
         //Properties
-        private List<Card> _cards = new List<Card>(36);
+        private List<Card> _packetCards = new List<Card>(36);
         private bool _done;
         private ConsoleKeyInfo _keyInfo;
         public List<Card> Cards
         {
-            get { return _cards; }
-            set { _cards = value; }
+            get { return _packetCards; }
+            set { _packetCards = value; }
         }
 
-        //Type
-        Type type = new Type("AS", 11);
-        //Sign
+        /// <summary>
+        /// Generate all the signs
+        /// </summary>
+        private void GenerateSign()
+        {
+            Sign newsign = new Sign('♥', System.Drawing.Color.DarkRed);
+            newsign = new Sign('♦', System.Drawing.Color.DarkRed);
+            newsign = new Sign('♣', System.Drawing.Color.White);
+            newsign = new Sign('♠', System.Drawing.Color.White);
+        }
+
+        /// <summary>
+        /// Generate all the types
+        /// </summary>
+        private void GenerateType()
+        {
+            Type newtype = new Type("AS", 11);
+            newtype = new Type("K", 4);
+            newtype = new Type("D", 3);
+            newtype = new Type("J", 2);
+            newtype = new Type("10", 10);
+            newtype = new Type("9", 0);
+            newtype = new Type("8", 0);
+            newtype = new Type("7", 0);
+            newtype = new Type("6", 0);
+        }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cards">List of cards for a paquet (36)</param>
-        public Paquet(List<Card> cards = { new Card})
+        public Paquet()
         {
-            _done = false;
-            _cards = cards;
+            GenerateSign();
+            GenerateType();
+            for (int i = 0; i < Sign.Signs.Count; i++)
+            {
+                for (int j = 0; j < Type.Types.Count; j++)
+                {
+                    _packetCards.Add(new Card(Type.Types[j], Sign.Signs[i], false));
+                }
+            }
         }
 
         /// <summary>
         /// Shuffle the cards
         /// </summary>
-        public void ShuffleCards()
+        public void Shuffle()
         {
             Random rdm = new Random();
-            _cards.OrderBy(item => rdm.Next());
+            _packetCards.OrderBy(item => rdm.Next());
         }
 
         /// <summary>
         /// Cut the paquet at a specifique position
         /// </summary>
         /// <param name="packet"></param>
-        public void Cut(List<Card> packet)
+        public void Cut()
         {
             int x;
             int y;
@@ -77,7 +107,7 @@ namespace P_Jass
             System.Console.Write('╝');
 
             //write oder border cards
-            for (int j = 0; j < packet.Count - 1; j++)
+            for (int j = 0; j < _packetCards.Count - 1; j++)
             {
                 System.Console.SetCursorPosition(x, y);
                 System.Console.Write('╗');
@@ -93,7 +123,7 @@ namespace P_Jass
             }
 
             //Write the selector in the middle
-            int middle = packet.Count / 2;
+            int middle = _packetCards.Count / 2;
             System.Console.CursorVisible = false;
             System.Console.SetCursorPosition(9 + middle, System.Console.CursorTop + 1);
             System.Console.Write('▲');
@@ -105,18 +135,18 @@ namespace P_Jass
                 {
                     if (_keyInfo.Key == ConsoleKey.Enter)
                     {
-                        if (System.Console.CursorLeft > 9 + 3 && System.Console.CursorLeft < packet.Count - 3)
+                        if (System.Console.CursorLeft > 9 + 3 && System.Console.CursorLeft < _packetCards.Count - 3)
                         {
 
                             Queue<Card> cards = new Queue<Card>(System.Console.CursorLeft - 9);
                             for (int i = 0; i < System.Console.CursorLeft - 9; i++)
                             {
-                                cards.Enqueue(packet[i]);
-                                packet[i] = packet[System.Console.CursorLeft - 9 + i - 1];
+                                cards.Enqueue(_packetCards[i]);
+                                _packetCards[i] = _packetCards[System.Console.CursorLeft - 9 + i - 1];
                             }
                             for (int i = 0; i < System.Console.CursorLeft - 9; i++)
                             {
-                                packet[System.Console.CursorLeft - 9 + i] = cards.Dequeue();
+                                _packetCards[System.Console.CursorLeft - 9 + i] = cards.Dequeue();
                             }
                             _done = true;
                         }
@@ -127,7 +157,7 @@ namespace P_Jass
                     }
                 }
                 //Save the user input for his username
-                else if (System.Console.CursorLeft > 9 + 3 && System.Console.CursorLeft < packet.Count + 9 - 3 || System.Console.CursorLeft > 9 + 3 && _keyInfo.Key == ConsoleKey.LeftArrow || System.Console.CursorLeft < packet.Count - 3 && _keyInfo.Key == ConsoleKey.RightArrow)
+                else if (System.Console.CursorLeft > 9 + 3 && System.Console.CursorLeft < _packetCards.Count + 9 - 3 || System.Console.CursorLeft > 9 + 3 && _keyInfo.Key == ConsoleKey.LeftArrow || System.Console.CursorLeft < _packetCards.Count - 3 && _keyInfo.Key == ConsoleKey.RightArrow)
                 {
                     switch (_keyInfo.Key)
                     {
@@ -155,6 +185,34 @@ namespace P_Jass
                 }
             }
             System.Console.Read();
+        }
+
+        public void Distribute(Player one, Player two, Player three, Player four)
+        {
+            int nbr = 0;
+            for (int j = 0; j < 3; j++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    one.Cards.Add(_packetCards[nbr]);
+                    nbr++;
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    two.Cards.Add(_packetCards[nbr]);
+                    nbr++;
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    three.Cards.Add(_packetCards[nbr]);
+                    nbr++;
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    four.Cards.Add(_packetCards[nbr]);
+                    nbr++;
+                }
+            }
         }
     }
 }

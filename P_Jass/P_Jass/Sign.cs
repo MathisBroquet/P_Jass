@@ -10,7 +10,7 @@ namespace P_Jass
         //Properties
         private char _text;
         private Color _color;
-        public List<Sign> signs = new List<Sign>();
+        public  static List<Sign> Signs = new List<Sign>();
 
         /// <summary>
         /// Creat the sign of the card
@@ -21,7 +21,7 @@ namespace P_Jass
         {
             _text = text;
             _color = color;
-            signs.Add(this);
+            Signs.Add(this);
         }
     }
 }

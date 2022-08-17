@@ -20,7 +20,7 @@ namespace P_Jass
         {
             _text = text;
             _value = value;
-            types.Add(this);
+            Types.Add(this);
         }
     }
 }

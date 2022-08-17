@@ -43,9 +43,17 @@ namespace P_Jass
             Slide presentation2 = new Slide("123456", "Bonsoir", "DAMMM LES GENS");
             Presentation presentation1 = new Presentation(new List<Slide> { presentation, presentation2 });
             presentation1.Start();*/
-            System.Console.SetWindowSize(190, 30);
+
+
+            /*System.Console.SetWindowSize(190, 30);
             Custom();
-            SecondaryMain();
+            SecondaryMain();*/
+            Paquet paquet = new Paquet();
+            Player player1 = new Player("1");
+            Player player2 = new Player("2");
+            Player player3 = new Player("3");
+            Player player4 = new Player("4");
+            paquet.Distribute(player1, player2, player3, player4);
         }
 
         /// <summary>
