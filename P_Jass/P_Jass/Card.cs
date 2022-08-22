@@ -31,5 +31,53 @@ namespace P_Jass
             _atout = atout;
             packet.Add(this);
         }
+
+        public void WriteCard(int x, int y)
+        {
+            Console.ForegroundColor = this._sign.Color;
+            if(this._type.Text == "AS")
+            {
+                Console.SetCursorPosition(x,y);
+                Console.Write("╔─╗");
+                Console.SetCursorPosition(x, y + 1);
+                Console.Write($"│{this._sign.Text}│");
+                Console.SetCursorPosition(x, y + 2);
+                Console.Write("╚─╝");
+            }
+            else
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+                Console.SetCursorPosition(x, y + 1);
+                Console.Write($"│{this._type.Text}│");
+                Console.SetCursorPosition(x, y + 2);
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+            }
+        }
+
+        public void Animate(int x, int y)
+        {
+            int xAvance = (Console.WindowWidth / 2 - x - 3 / 2);
+            int yAvance = (Console.WindowHeight / 2 - y - 3 / 2);
+            System.Console.ForegroundColor = this._sign.Color;
+            if (this._type.Text == "AS")
+            {
+                Console.SetCursorPosition(x + xAvance, y + yAvance);
+                Console.Write("╔─╗");
+                Console.SetCursorPosition(x + xAvance, y + yAvance + 1);
+                Console.Write($"│{this._sign.Text}│");
+                Console.SetCursorPosition(x + xAvance, y + yAvance + 2);
+                Console.Write("╚─╝");
+            }
+            else
+            {
+                Console.SetCursorPosition(x + xAvance , y + yAvance );
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+                Console.SetCursorPosition(x + xAvance , y + yAvance  + 1);
+                Console.Write($"│{this._type.Text}│");
+                Console.SetCursorPosition(x + xAvance , y + yAvance  + 2);
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+            }
+        }
     }
 }

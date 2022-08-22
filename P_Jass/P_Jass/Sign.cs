@@ -9,7 +9,17 @@ namespace P_Jass
     {
         //Properties
         private char _text;
-        private Color _color;
+        public char Text
+        {
+            get { return _text; }
+        }
+
+        private System.ConsoleColor _color;
+        public System.ConsoleColor Color
+        {
+            get { return _color; }
+        }
+
         public  static List<Sign> Signs = new List<Sign>();
 
         /// <summary>
@@ -17,7 +27,7 @@ namespace P_Jass
         /// </summary>
         /// <param name="text">The symbole of the card (♥, ♦, ♣, ♠)</param>
         /// <param name="color">the color of the symbole</param>
-        public Sign(char text, Color color)
+        public Sign(char text, System.ConsoleColor color)
         {
             _text = text;
             _color = color;

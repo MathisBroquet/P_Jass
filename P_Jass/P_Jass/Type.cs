@@ -8,7 +8,17 @@ namespace P_Jass
     {
         //Properties
         private string _text;
+        public string Text
+        {
+            get { return _text; }
+        }
+
         private int _value;
+        public int Value
+        {
+            get { return _value; }
+        }
+
         public static List<Type> Types = new List<Type>();
 
         /// <summary>

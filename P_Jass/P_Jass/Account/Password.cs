@@ -53,7 +53,7 @@ namespace P_Jass
 
         public string ChangePass()
         {
-            string newName = P_Jass.Console.ReadLocation(_x + 1, _y - 2, _maxLength, _regexPassword, _passwordHash, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
+            string newName = Extension.ReadLocation(_x + 1, _y - 2, _maxLength, _regexPassword, _passwordHash, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
 
             if (_regexPassword.IsMatch(newName) /*&& /*si le mot de passe correspond */ )
             {

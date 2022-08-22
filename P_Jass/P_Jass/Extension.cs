@@ -1,13 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace P_Jass
 {
-    public static class Console
+    /// <summary>
+    /// Extension classs to shuffle the cards
+    /// https://www.delftstack.com/fr/howto/csharp/shuffle-a-list-in-csharp/
+    /// </summary>
+    static class Extension
     {
+        private static Random rng = new Random();
+
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
         public static String ReadLocation(int left, int top, int maxLength, Regex regex, string str = "", string message = "")
         {
             //Properties
@@ -58,7 +79,7 @@ namespace P_Jass
                         case ConsoleKey.Backspace:
                             //If a minimum of one character is present
                             if (count > 0)
-                           {
+                            {
                                 if (deplace != count && count < maxLength - 1 && left + deplace > left)
                                 {
                                     for (int i = 0; i <= count - deplace + 1; i++)
@@ -73,7 +94,7 @@ namespace P_Jass
                                     }
                                     System.Console.SetCursorPosition(left + deplace + 1, top);
                                 }
-                                else if(deplace == 0)
+                                else if (deplace == 0)
                                 {
                                 }
                                 else

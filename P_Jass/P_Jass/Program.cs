@@ -48,12 +48,15 @@ namespace P_Jass
             /*System.Console.SetWindowSize(190, 30);
             Custom();
             SecondaryMain();*/
-            Paquet paquet = new Paquet();
             Player player1 = new Player("1");
             Player player2 = new Player("2");
             Player player3 = new Player("3");
             Player player4 = new Player("4");
-            paquet.Distribute(player1, player2, player3, player4);
+            Game test = new Game("test", 1234, player1);
+            test.Players.Add(player2);
+            test.Players.Add(player3);
+            test.Players.Add(player4);
+            test.Start();
         }
 
         /// <summary>
@@ -103,7 +106,7 @@ namespace P_Jass
         /// <summary>
         /// start the game
         /// </summary>
-        private static void Game()
+        private static void Gamme()
         {
 
         }
@@ -206,7 +209,7 @@ namespace P_Jass
             switch (_menuName.Slection())
             {
                 case "Jouer":
-                    Game();
+                    Gamme();
                     break;
                 case "Paramètres":
                     Parameter();

@@ -54,7 +54,7 @@ namespace P_Jass
 
         public string ChangeName()
         {
-            string newName = P_Jass.Console.ReadLocation(_x + 1, _y - 2, _maxLength, _regexUsername, _username, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
+            string newName = Extension.ReadLocation(_x + 1, _y - 2, _maxLength, _regexUsername, _username, $"Votre nom d'utilisateur peut uniquement contenir {_maxLength} lettres et chiffres");
 
             if (_regexUsername.IsMatch(newName) && !_allUsernames.Contains(newName))
             {
