@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace P_Jass
 {
@@ -14,6 +15,8 @@ namespace P_Jass
         public bool atout { set => _atout = value; }
 
         public List<Card> packet = new List<Card>(36);
+        private ConsoleKeyInfo keyInfo;
+        private bool done;
 
         /// <summary>
         /// Constructor
@@ -29,19 +32,52 @@ namespace P_Jass
             packet.Add(this);
         }
 
-        /// <summary>
-        /// Shuffle the cards
-        /// </summary>
-        public void ShuffleCards()
+        public void WriteCard(int x, int y)
         {
-            Random rdm = new Random();
-
-            packet.OrderBy(item => rdm.Next());
+            Console.ForegroundColor = this._sign.Color;
+            if(this._type.Text == "AS")
+            {
+                Console.SetCursorPosition(x,y);
+                Console.Write("╔─╗");
+                Console.SetCursorPosition(x, y + 1);
+                Console.Write($"│{this._sign.Text}│");
+                Console.SetCursorPosition(x, y + 2);
+                Console.Write("╚─╝");
+            }
+            else
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+                Console.SetCursorPosition(x, y + 1);
+                Console.Write($"│{this._type.Text}│");
+                Console.SetCursorPosition(x, y + 2);
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+            }
         }
 
-        public void GiveCards()
+        public void Animate(int x, int y)
         {
-
+            int xAvance = (Console.WindowWidth / 2 - x - 3 / 2);
+            int yAvance = (Console.WindowHeight / 2 - y - 3 / 2);
+            System.Console.ForegroundColor = this._sign.Color;
+            if (this._type.Text == "AS")
+            {
+                Console.SetCursorPosition(x + xAvance, y + yAvance);
+                Console.Write("╔─╗");
+                Console.SetCursorPosition(x + xAvance, y + yAvance + 1);
+                Console.Write($"│{this._sign.Text}│");
+                Console.SetCursorPosition(x + xAvance, y + yAvance + 2);
+                Console.Write("╚─╝");
+            }
+            else
+            {
+                Console.SetCursorPosition(x + xAvance , y + yAvance );
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+                Console.SetCursorPosition(x + xAvance , y + yAvance  + 1);
+                Console.Write($"│{this._type.Text}│");
+                Console.SetCursorPosition(x + xAvance , y + yAvance  + 2);
+                Console.Write($"{this._sign.Text}─{this._sign.Text}");
+            }
         }
     }
 }
